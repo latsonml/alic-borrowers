@@ -11,7 +11,7 @@ export default function Footer() {
         <br />
         <a
           className="mono"
-          href="https://investors.alicinvestments.com"
+          href="https://alicinvestments.com"
           style={{ textDecoration: 'underline', textUnderlineOffset: '3px' }}
         >
           For investors →
