@@ -1,10 +1,17 @@
-import posthog from 'posthog-js'
+import type posthogJs from 'posthog-js'
 
 const POSTHOG_KEY = 'phc_CbFWPbbpvXkQgDqWTxPjJ2LnMqzLWS5bBCnzvApQ3XxG'
 const POSTHOG_HOST = 'https://us.i.posthog.com'
 
-export function initPostHog() {
-  if (typeof window === 'undefined' || posthog.__loaded) return
+let posthog: typeof posthogJs | null = null
+
+export async function initPostHog() {
+  if (typeof window === 'undefined') return
+
+  const mod = await import('posthog-js')
+  posthog = mod.default
+
+  if (posthog.__loaded) return
 
   posthog.init(POSTHOG_KEY, {
     api_host: POSTHOG_HOST,
@@ -12,4 +19,6 @@ export function initPostHog() {
   })
 }
 
-export { posthog }
+export function getPostHog() {
+  return posthog
+}
