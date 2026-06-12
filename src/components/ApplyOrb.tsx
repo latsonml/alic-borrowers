@@ -2,17 +2,20 @@ import { APPLY_URL } from '../constants'
 
 export default function ApplyOrb() {
   return (
-    <a
+    <button
       className="invest-orb"
       id="orb"
-      href={APPLY_URL}
+      type="button"
       aria-label="Lower my payment — apply today"
+      onClick={() => {
+        window.location.href = APPLY_URL
+      }}
     >
       <span className="orb-label">
         Lower my
         <br />
         payment
       </span>
-    </a>
+    </button>
   )
 }
