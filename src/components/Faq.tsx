@@ -11,17 +11,17 @@ export default function Faq() {
             Is this a new loan on top of my advances?<span className="plus">+</span>
           </summary>
           <div className="a">
-            No. We <b>retire your existing obligations</b> — paying your funders directly — and replace them with one
-            plan. Nothing is stacked on top; the pile is replaced, not added to.
+            No. When your plan funds, we <b>give you the money to pay your other lenders</b> and replace the pile with
+            one plan. Nothing is stacked on top — the old obligations are paid off, not added to.
           </div>
         </details>
         <details>
           <summary>
-            Do my current funders get paid?<span className="plus">+</span>
+            What happens to my current funders?<span className="plus">+</span>
           </summary>
           <div className="a">
-            Yes, <b>directly and in full per the plan</b>. You don&apos;t have to make awkward calls or manage payoffs —
-            we handle the payoff process with each funder as part of funding your relief.
+            When your plan funds, we <b>give you the capital to pay them off</b>. You use that money to settle what you
+            owe your other lenders — then you&apos;re on one lower payment instead of juggling multiple daily debits.
           </div>
         </details>
         <details>

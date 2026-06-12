@@ -36,7 +36,7 @@ function drawContours() {
       else ctx.lineTo(x, y)
     }
     ctx.closePath()
-    ctx.strokeStyle = `rgba(143,169,247,${0.16 - r * 0.0045})`
+    ctx.strokeStyle = `rgba(73,197,182,${0.16 - r * 0.0045})`
     ctx.lineWidth = 1
     ctx.stroke()
   }
@@ -61,7 +61,7 @@ export function useBorrowerAnimations() {
           stagger: 0.12,
           delay: 0.15,
         })
-        gsap.from('.hero-eyebrow, .hero-sub, .hero-cta, .hero-note', {
+        gsap.from('.hero-eyebrow, .hero-sub, .hero-actions, .hero-note', {
           opacity: 0,
           y: 16,
           duration: 0.9,
@@ -131,56 +131,6 @@ export function useBorrowerAnimations() {
         })
       }
 
-      const stmt = document.getElementById('stmtText')
-      if (stmt && !prefersReduced) {
-        const text = stmt.textContent || ''
-        const acidFrom = text.indexOf('but most')
-        stmt.innerHTML = text
-          .split(' ')
-          .map((w, i, arr) => {
-            const pos = arr.slice(0, i).join(' ').length
-            const acid = pos >= acidFrom - 1
-            return `<span class="w" style="${acid ? 'color:var(--spring)' : ''}">${w}</span>`
-          })
-          .join(' ')
-        gsap.to(stmt.querySelectorAll('.w'), {
-          opacity: 1,
-          stagger: 0.06,
-          ease: 'none',
-          scrollTrigger: { trigger: '#statement', start: 'top 65%', end: 'center 45%', scrub: true },
-        })
-        document.querySelectorAll('#statement .fchip').forEach((c, i) => {
-          gsap.fromTo(
-            c,
-            { y: 40 + i * 14 },
-            {
-              y: -(40 + i * 10),
-              ease: 'none',
-              scrollTrigger: { trigger: '#statement', start: 'top bottom', end: 'bottom top', scrub: true },
-            },
-          )
-        })
-      }
-
-      if (!prefersReduced) {
-        const isMobile = window.matchMedia('(max-width:860px)').matches
-        gsap.from('#tl-fill', {
-          scaleX: isMobile ? 1 : 0,
-          scaleY: isMobile ? 0 : 1,
-          duration: 1.6,
-          ease: 'power2.inOut',
-          scrollTrigger: { trigger: '.tl', start: 'top 75%' },
-        })
-        gsap.from('.tl-stop', {
-          opacity: 0,
-          y: 18,
-          duration: 0.7,
-          ease: 'power2.out',
-          stagger: 0.28,
-          scrollTrigger: { trigger: '.tl', start: 'top 75%' },
-        })
-      }
-
       ScrollTrigger.create({
         trigger: '#numbers',
         start: 'top 72px',
@@ -220,26 +170,6 @@ export function useBorrowerAnimations() {
         }
       })
 
-      const steps = gsap.utils.toArray<HTMLElement>('.path-step')
-      const arts = gsap.utils.toArray<HTMLImageElement>('.step-art img')
-      const tag = document.getElementById('artTag')
-      const labels = ['[CREATE ACCOUNT]', '[CONNECT BANK ACCOUNTS]', '[SELECT OBLIGATIONS]', '[GET RELIEF]']
-      const activate = (i: number) => {
-        steps.forEach((s, j) => s.classList.toggle('active', j === i))
-        arts.forEach((a, j) => a.classList.toggle('show', j === i))
-        if (tag) tag.textContent = labels[i]
-      }
-      if (!prefersReduced) {
-        steps.forEach((s, i) => {
-          ScrollTrigger.create({
-            trigger: s,
-            start: 'top 60%',
-            end: 'bottom 60%',
-            onEnter: () => activate(i),
-            onEnterBack: () => activate(i),
-          })
-        })
-      }
     })
 
     const orb = document.getElementById('orb')

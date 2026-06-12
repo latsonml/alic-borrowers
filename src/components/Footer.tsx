@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer>
+    <footer className="site-footer">
       <div>
         <span className="brand-mark">
           Alic<sup>®</sup>
@@ -20,8 +20,9 @@ export default function Footer() {
       <p className="disclaimer">
         Savings figures describe completed restructuring plans to date and targets for new plans; your terms depend on
         your verified cash flow and are confirmed with you before any change takes effect. Checking your savings does
-        not affect your credit. Commercial financing only — not consumer credit. Alic pays existing funders directly as
-        part of each plan. Owner stories are composite examples representative of completed plans.
+        not affect your credit. Commercial financing only — not consumer credit. Funded plans provide capital for you to
+        pay your other lenders as part of each plan. Owner stories are composite examples representative of completed
+        plans.
       </p>
     </footer>
   )

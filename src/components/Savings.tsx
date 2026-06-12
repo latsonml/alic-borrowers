@@ -120,19 +120,15 @@ export default function Savings() {
               <p className="o-sub">one payment, on a schedule your revenue can carry</p>
               <div className="bars" aria-hidden="true">
                 <div className="bar-row">
-                  <span className="mono" style={{ color: 'rgba(238,242,249,.6)' }}>
-                    old
-                  </span>
-                  <div className="bar" style={{ background: 'rgba(238,242,249,.18)' }}>
-                    <i style={{ background: 'rgba(238,242,249,.55)', width: '100%' }}></i>
+                  <span className="mono">old</span>
+                  <div className="bar old">
+                    <i />
                   </div>
                 </div>
                 <div className="bar-row">
-                  <span className="mono" style={{ color: 'rgba(238,242,249,.6)' }}>
-                    new
-                  </span>
-                  <div className="bar" style={{ background: 'rgba(238,242,249,.18)' }}>
-                    <i id="bar-new" style={{ background: '#FFFFFF', width: '70%' }}></i>
+                  <span className="mono">new</span>
+                  <div className="bar new">
+                    <i id="bar-new" style={{ width: '70%' }} />
                   </div>
                 </div>
               </div>

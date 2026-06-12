@@ -12,7 +12,7 @@ export default function Owners() {
         <OwnersScene />
 
         <div className="quotes">
-          <div className="quote reveal">
+          <div className="quote quote--sand reveal">
             <span className="q-mark" aria-hidden="true">
               &quot;
             </span>
@@ -28,7 +28,7 @@ export default function Owners() {
               <span className="q-chip">−32% / wk</span>
             </footer>
           </div>
-          <div className="quote reveal">
+          <div className="quote quote--mint reveal">
             <span className="q-mark" aria-hidden="true">
               &quot;
             </span>
@@ -44,7 +44,7 @@ export default function Owners() {
               <span className="q-chip">−28% / wk</span>
             </footer>
           </div>
-          <div className="quote reveal">
+          <div className="quote quote--rust reveal">
             <span className="q-mark" aria-hidden="true">
               &quot;
             </span>

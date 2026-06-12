@@ -1,21 +1,18 @@
-type ApplyOrbProps = {
-  onClick: () => void
-}
+import { APPLY_URL } from '../constants'
 
-export default function ApplyOrb({ onClick }: ApplyOrbProps) {
+export default function ApplyOrb() {
   return (
-    <button
+    <a
       className="invest-orb"
       id="orb"
-      type="button"
-      aria-label="Lower my payment — start the application"
-      onClick={onClick}
+      href={APPLY_URL}
+      aria-label="Lower my payment — apply today"
     >
       <span className="orb-label">
         Lower my
         <br />
         payment
       </span>
-    </button>
+    </a>
   )
 }

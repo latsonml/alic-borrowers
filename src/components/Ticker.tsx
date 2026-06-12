@@ -5,7 +5,7 @@ const TICKER_ITEMS: [string, string][] = [
   ['Application', '10 minutes'],
   ['Decision', 'Within a day'],
   ['Bank link', 'Read-only & secure'],
-  ['Your funders', 'Paid directly'],
+  ['Payoffs', 'You pay your lenders'],
   ['Credit check', 'None to see savings'],
 ]
 

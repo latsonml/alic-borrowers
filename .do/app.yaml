@@ -1,43 +1,11 @@
 name: alic-borrowers
-ingress:
-  rules:
-    - component:
-        name: web
-      match:
-        path:
-          prefix: /
-    - component:
-        name: api
-      match:
-        path:
-          prefix: /api
 static_sites:
   - name: web
     build_command: npm ci && npm run build
     output_dir: dist
     index_document: index.html
     catchall_document: index.html
-    envs:
-      - key: VITE_APPLY_API_URL
-        scope: BUILD_TIME
-        value: /api/alic/apply-submit
-functions:
-  - name: api
-    source_dir: /
     github:
       repo: latsonml/alic-borrowers
       branch: main
       deploy_on_push: true
-    envs:
-      - key: RESEND_API_KEY
-        scope: RUN_TIME
-        type: SECRET
-      - key: NOTIFY_EMAIL
-        scope: RUN_TIME
-        value: michael@aliccapital.com
-      - key: FROM_EMAIL
-        scope: RUN_TIME
-        value: Alic <apply@communications.alicinvestments.com>
-      - key: ALLOWED_ORIGINS
-        scope: RUN_TIME
-        value: https://aliccapital.com,https://www.aliccapital.com

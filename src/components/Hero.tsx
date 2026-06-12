@@ -1,10 +1,7 @@
+import { APPLY_URL } from '../constants'
 import Ticker from './Ticker'
 
-type HeroProps = {
-  onApplyClick: () => void
-}
-
-export default function Hero({ onApplyClick }: HeroProps) {
+export default function Hero() {
   return (
     <div className="panel hero" id="top">
       <span className="hero-eyebrow reveal-now">
@@ -13,12 +10,12 @@ export default function Hero({ onApplyClick }: HeroProps) {
       </span>
       <h1 id="headline">
         <span className="line">
-          <span>Debt Relief.</span>
+          <span>
+            <span className="hero-hl">One lower payment</span>
+          </span>
         </span>
         <span className="line">
-          <span>
-            Your payment, <em>30% smaller</em>.
-          </span>
+          <span>for your business</span>
         </span>
       </h1>
 
@@ -60,13 +57,18 @@ export default function Hero({ onApplyClick }: HeroProps) {
         Stacked advances with daily debits are draining your cash flow. Alic replaces the pile with{' '}
         <strong>one payment that&apos;s at least 20% smaller</strong> — and we target 30% or more.
       </p>
-      <button className="hero-cta" id="hero-cta" type="button" onClick={onApplyClick}>
-        See what you&apos;d save
-        <svg width="15" height="11" viewBox="0 0 16 12" fill="none" aria-hidden="true">
-          <path d="M10 1l5 5-5 5M15 6H1" stroke="currentColor" strokeWidth="1.6" />
-        </svg>
-      </button>
-      <div className="hero-note">No obligation · Read-only bank connection · Your funders get paid</div>
+      <div className="hero-actions">
+        <a className="hero-cta" id="hero-cta" href={APPLY_URL}>
+          Apply Today
+          <svg width="15" height="11" viewBox="0 0 16 12" fill="none" aria-hidden="true">
+            <path d="M10 1l5 5-5 5M15 6H1" stroke="currentColor" strokeWidth="1.6" />
+          </svg>
+        </a>
+        <a className="hero-cta-secondary" href="#steps">
+          See how it works
+        </a>
+      </div>
+      <div className="hero-note">No credit impact · No obligation · Read-only bank connection</div>
 
       <Ticker />
     </div>
