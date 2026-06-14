@@ -55,6 +55,51 @@ const GRID_BG: React.CSSProperties = {
   backgroundSize: '54px 54px',
 }
 
+const OBLIGATIONS = [
+  {
+    id: '01',
+    funder: 'RapidFnd',
+    debit: '$486 / day',
+    remaining: '$38,400',
+    desktopCls: 'md:left-[6%] md:top-[17%]',
+  },
+  {
+    id: '02',
+    funder: 'MerchCap',
+    debit: '$394 / day',
+    remaining: '$21,750',
+    desktopCls: 'md:left-[9%] md:top-[46%]',
+  },
+  {
+    id: '03',
+    funder: 'JetAdv',
+    debit: '$360 / day',
+    remaining: '$14,400',
+    desktopCls: 'md:bottom-[8%] md:left-[7%]',
+  },
+] as const
+
+function ObligationCard({ obligation }: { obligation: (typeof OBLIGATIONS)[number] }) {
+  return (
+    <>
+      ► OBLIGATION {obligation.id}
+      <br />
+      {'{'}
+      <br />
+      &nbsp;&nbsp;<span className="text-[#49C5B6]">&quot;funder&quot;</span>: &quot;{obligation.funder}&quot;,
+      <br />
+      &nbsp;&nbsp;<span className="text-[#49C5B6]">&quot;debit&quot;</span>: &quot;{obligation.debit}&quot;,
+      <br />
+      &nbsp;&nbsp;<span className="text-[#49C5B6]">&quot;remaining&quot;</span>: &quot;{obligation.remaining}&quot;
+      <br />
+      {'}'}
+    </>
+  )
+}
+
+const OBLIGATION_CARD_CLS =
+  'mono rounded-md border border-[rgba(17,20,27,.2)] bg-white p-4 text-left leading-[1.7] text-[rgba(17,20,27,.6)] shadow-[6px_6px_0_rgba(17,20,27,.05)]'
+
 export default function StatementScroll() {
   const rootRef = useRef<HTMLDivElement>(null)
   const phase1Ref = useRef<HTMLDivElement>(null)
@@ -76,6 +121,7 @@ export default function StatementScroll() {
       if (prefersReduced) {
         gsap.set('[data-word]', { opacity: 1 })
         gsap.set(drawPaths, { strokeDashoffset: 0 })
+        gsap.set('[data-json-mobile], [data-json-desktop]', { opacity: 1, x: 0, clearProps: 'transform' })
         return
       }
 
@@ -117,8 +163,22 @@ export default function StatementScroll() {
       })
 
       p2.from('[data-p2-title]', { opacity: 0, y: 32, duration: 0.6 }, 0)
-        .from('[data-json]', { opacity: 0, x: -60, duration: 0.6, stagger: 0.2 }, 0.15)
-        .to('[data-draw="1"]', { strokeDashoffset: 0, duration: 0.6, ease: 'none' }, 0.55)
+
+      const isMobile = window.matchMedia('(max-width: 767px)').matches
+      if (isMobile) {
+        const mobileCards = gsap.utils.toArray<HTMLElement>('[data-json-mobile]')
+        mobileCards.forEach((card, i) => {
+          p2.from(
+            card,
+            { x: '-105%', opacity: 0, duration: 0.42, ease: 'power2.out' },
+            0.18 + i * 0.24,
+          )
+        })
+      } else {
+        p2.from('[data-json-desktop]', { opacity: 0, x: -60, duration: 0.6, stagger: 0.2 }, 0.15)
+      }
+
+      p2.to('[data-draw="1"]', { strokeDashoffset: 0, duration: 0.6, ease: 'none' }, 0.55)
         .to('[data-draw="2"]', { strokeDashoffset: 0, duration: 0.6, ease: 'none' }, 0.7)
         .from('[data-analysis]', { opacity: 0, y: 60, duration: 0.6 }, 0.8)
         .to('[data-draw="4"]', { strokeDashoffset: 0, duration: 0.5, ease: 'none' }, 0.95)
@@ -283,55 +343,33 @@ export default function StatementScroll() {
             </h2>
           </div>
 
-          {/* JSON blocks — existing repayments */}
+          {/* Mobile — stacked obligations deck */}
           <div
-            data-json
-            className="mono absolute inset-x-4 top-[36%] mx-auto w-fit rounded-md border border-[rgba(17,20,27,.2)] bg-white p-4 text-left leading-[1.7] text-[rgba(17,20,27,.6)] shadow-[6px_6px_0_rgba(17,20,27,.05)] md:inset-x-auto md:left-[6%] md:top-[17%] md:mx-0"
+            className="pointer-events-none absolute inset-x-4 top-[30%] z-[5] mx-auto h-[152px] max-w-[min(100%,340px)] md:hidden"
+            aria-hidden="true"
           >
-            ► OBLIGATION 01
-            <br />
-            {'{'}
-            <br />
-            &nbsp;&nbsp;<span className="text-[#49C5B6]">&quot;funder&quot;</span>: &quot;RapidFnd&quot;,
-            <br />
-            &nbsp;&nbsp;<span className="text-[#49C5B6]">&quot;debit&quot;</span>: &quot;$486 / day&quot;,
-            <br />
-            &nbsp;&nbsp;<span className="text-[#49C5B6]">&quot;remaining&quot;</span>: &quot;$38,400&quot;
-            <br />
-            {'}'}
+            {OBLIGATIONS.map((obligation, i) => (
+              <div
+                key={obligation.id}
+                data-json-mobile
+                className={`${OBLIGATION_CARD_CLS} absolute inset-0 will-change-transform`}
+                style={{ zIndex: i + 1 }}
+              >
+                <ObligationCard obligation={obligation} />
+              </div>
+            ))}
           </div>
-          <div
-            data-json
-            className="mono absolute left-[9%] top-[46%] hidden rounded-md border border-[rgba(17,20,27,.2)] bg-white p-4 text-left leading-[1.7] text-[rgba(17,20,27,.6)] shadow-[6px_6px_0_rgba(17,20,27,.05)] md:block"
-          >
-            ► OBLIGATION 02
-            <br />
-            {'{'}
-            <br />
-            &nbsp;&nbsp;<span className="text-[#49C5B6]">&quot;funder&quot;</span>: &quot;MerchCap&quot;,
-            <br />
-            &nbsp;&nbsp;<span className="text-[#49C5B6]">&quot;debit&quot;</span>: &quot;$394 / day&quot;,
-            <br />
-            &nbsp;&nbsp;<span className="text-[#49C5B6]">&quot;remaining&quot;</span>: &quot;$21,750&quot;
-            <br />
-            {'}'}
-          </div>
-          <div
-            data-json
-            className="mono absolute bottom-[8%] left-[7%] hidden rounded-md border border-[rgba(17,20,27,.2)] bg-white p-4 text-left leading-[1.7] text-[rgba(17,20,27,.6)] shadow-[6px_6px_0_rgba(17,20,27,.05)] md:block"
-          >
-            ► OBLIGATION 03
-            <br />
-            {'{'}
-            <br />
-            &nbsp;&nbsp;<span className="text-[#49C5B6]">&quot;funder&quot;</span>: &quot;JetAdv&quot;,
-            <br />
-            &nbsp;&nbsp;<span className="text-[#49C5B6]">&quot;debit&quot;</span>: &quot;$360 / day&quot;,
-            <br />
-            &nbsp;&nbsp;<span className="text-[#49C5B6]">&quot;remaining&quot;</span>: &quot;$14,400&quot;
-            <br />
-            {'}'}
-          </div>
+
+          {/* Desktop — scattered obligation cards */}
+          {OBLIGATIONS.map((obligation) => (
+            <div
+              key={obligation.id}
+              data-json-desktop
+              className={`${OBLIGATION_CARD_CLS} absolute max-md:hidden ${obligation.desktopCls} md:block`}
+            >
+              <ObligationCard obligation={obligation} />
+            </div>
+          ))}
 
           {/* Bottom-center consolidation analysis */}
           <div
